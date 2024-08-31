@@ -85,4 +85,39 @@ class StatementService {
             throw error
         }
     }
+
+    async getById(id: string) {
+        try {
+            const statement = await prisma.statement.findUnique({
+                where: {
+                    id
+                }
+            })
+            return statement
+        } catch (error) {
+            console.error(`Error fetching statement. ${error}`)
+            throw error
+        }
+    }
+
+    async getByPeriod(idCheckingAccount: string, startDate: Date, endDate: Date) {
+        try {
+            const statement = await prisma.statement.findMany({
+                where: {
+                    idCheckingAccount,
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    }
+                },
+                orderBy: {
+                    createdAt: "desc"
+                }
+            })
+            return statement
+        } catch (error) {
+            console.error(`Error fetching statement. ${error}`)
+            throw error
+        }
+    }
 }

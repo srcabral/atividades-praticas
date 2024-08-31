@@ -14,21 +14,21 @@ datasource db {
 }
 
 model CheckingAccount {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String
-  number String
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String
+  number     String
+  createAt   DateTime    @default(now())
+  updateAt   DateTime    @updatedAt
   statements Statement[]
 }
 
 model Statement {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  amount Float
-  type String
-  description String
-  createdAt DateTime @default(now())
-  checkingAccount CheckingAccount @relation(fields: [idCheckingAccount], references: [id])
-  idCheckingAccount String @db.ObjectId
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  amount            Float
+  type              String
+  description       String
+  createdAt         DateTime        @default(now())
+  checkingAccount   CheckingAccount @relation(fields: [idCheckingAccount], references: [id])
+  idCheckingAccount String          @db.ObjectId
 }
